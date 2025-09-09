@@ -1,6 +1,6 @@
 package br.com.thiagosantos.vacancymanagement.modules.cadidate.controllers;
 
-import br.com.thiagosantos.vacancymanagement.modules.cadidate.CandidateEntity;
+import br.com.thiagosantos.vacancymanagement.modules.cadidate.entities.CandidateEntity;
 import br.com.thiagosantos.vacancymanagement.modules.cadidate.useCases.CreateCandidateUseCase;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

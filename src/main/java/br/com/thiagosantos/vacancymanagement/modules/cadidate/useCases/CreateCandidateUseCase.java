@@ -1,8 +1,8 @@
 package br.com.thiagosantos.vacancymanagement.modules.cadidate.useCases;
 
 import br.com.thiagosantos.vacancymanagement.exceptions.UserFoundException;
-import br.com.thiagosantos.vacancymanagement.modules.cadidate.CandidateEntity;
-import br.com.thiagosantos.vacancymanagement.modules.cadidate.CandidateRepository;
+import br.com.thiagosantos.vacancymanagement.modules.cadidate.entities.CandidateEntity;
+import br.com.thiagosantos.vacancymanagement.modules.cadidate.repositories.CandidateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

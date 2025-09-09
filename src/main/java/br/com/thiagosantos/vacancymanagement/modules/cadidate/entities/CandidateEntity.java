@@ -1,4 +1,4 @@
-package br.com.thiagosantos.vacancymanagement.modules.cadidate;
+package br.com.thiagosantos.vacancymanagement.modules.cadidate.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
