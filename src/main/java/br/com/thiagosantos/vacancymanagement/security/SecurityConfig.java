@@ -7,10 +7,17 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    private SecurityFilter securityFilter;
+
+    public SecurityConfig(SecurityFilter securityFilter) {
+        this.securityFilter = securityFilter;
+    }
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -20,7 +27,9 @@ public class SecurityConfig {
                             .requestMatchers("/company/").permitAll()
                             .requestMatchers("/auth/company").permitAll();
                     auth.anyRequest().authenticated();
-                });
+                })
+                .addFilterBefore(securityFilter, BasicAuthenticationFilter.class)
+        ;
         return http.build();
     }
 
