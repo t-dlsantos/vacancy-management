@@ -3,6 +3,7 @@ package br.com.thiagosantos.vacancymanagement.modules.company.useCases;
 import javax.naming.AuthenticationException;
 
 import br.com.thiagosantos.vacancymanagement.modules.company.dto.AuthCompanyDTO;
+import br.com.thiagosantos.vacancymanagement.modules.company.dto.AuthCompanyResponseDTO;
 import br.com.thiagosantos.vacancymanagement.modules.company.repositories.CompanyRepository;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class AuthCompanyUseCase {
@@ -27,7 +30,7 @@ public class AuthCompanyUseCase {
         this.companyRepository = companyRepository;
     }
 
-    public String execute(AuthCompanyDTO authCompanyDTO) throws AuthenticationException {
+    public AuthCompanyResponseDTO execute(AuthCompanyDTO authCompanyDTO) throws AuthenticationException {
         var company = this.companyRepository.findByUsername(authCompanyDTO.getUsername()).orElseThrow(
                 () -> {
                     throw new UsernameNotFoundException("Username/Password incorrect!");
@@ -40,12 +43,20 @@ public class AuthCompanyUseCase {
         }
 
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
+
+        var expiresIn = Instant.now().plus(Duration.ofHours(2));
+
         var token = JWT.create().withIssuer("javagas")
-        .withExpiresAt(Instant.now().plus(Duration.ofHours(2)))
+                .withExpiresAt(Instant.now().plus(Duration.ofHours(2)))
                 .withSubject(company.getId().toString())
+                .withExpiresAt(expiresIn)
+                .withClaim("roles", List.of("COMPANY"))
                 .sign(algorithm);
         ;
 
-        return token;
+        return AuthCompanyResponseDTO.builder()
+                .access_token(token)
+                .expires_in(expiresIn.toEpochMilli())
+                .build();
     }
 }

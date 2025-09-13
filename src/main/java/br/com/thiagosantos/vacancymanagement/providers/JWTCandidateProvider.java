@@ -11,12 +11,12 @@ import org.springframework.stereotype.Service;
 public class JWTCandidateProvider {
 
     @Value("${security.token.secret.candidate}")
-    private String secreKey;
+    private String secretKey;
 
     public DecodedJWT validateToken(String token) {
         token = token.replace("Bearer ", "");
 
-        Algorithm algorithm = Algorithm.HMAC256(secreKey);
+        Algorithm algorithm = Algorithm.HMAC256(secretKey);
 
         try {
             return JWT.require(algorithm)

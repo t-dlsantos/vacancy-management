@@ -18,7 +18,7 @@ import java.io.IOException;
 @Component
 public class SecurityCandidateFilter extends OncePerRequestFilter {
 
-    private JWTCandidateProvider jwtProvider;
+    private final JWTCandidateProvider jwtProvider;
 
     public SecurityCandidateFilter(JWTCandidateProvider jwtProvider) {
         this.jwtProvider = jwtProvider;

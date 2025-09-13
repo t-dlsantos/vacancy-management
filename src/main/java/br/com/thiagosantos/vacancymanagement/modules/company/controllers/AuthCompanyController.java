@@ -15,7 +15,7 @@ import javax.naming.AuthenticationException;
 @RequestMapping("/company")
 public class AuthCompanyController {
 
-    private AuthCompanyUseCase authCompanyUseCase;
+    private final AuthCompanyUseCase authCompanyUseCase;
 
     public AuthCompanyController(AuthCompanyUseCase authCompanyUseCase) {
         this.authCompanyUseCase = authCompanyUseCase;
