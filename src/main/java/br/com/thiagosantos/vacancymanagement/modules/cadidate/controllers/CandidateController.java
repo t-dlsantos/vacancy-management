@@ -1,6 +1,5 @@
 package br.com.thiagosantos.vacancymanagement.modules.cadidate.controllers;
 
-import br.com.thiagosantos.vacancymanagement.modules.cadidate.dto.ProfileCandidateResponseDTO;
 import br.com.thiagosantos.vacancymanagement.modules.cadidate.entities.CandidateEntity;
 import br.com.thiagosantos.vacancymanagement.modules.cadidate.useCases.CreateCandidateUseCase;
 import br.com.thiagosantos.vacancymanagement.modules.cadidate.useCases.ListAllJobsByFilterUseCase;
@@ -16,8 +15,6 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import org.apache.coyote.Response;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
