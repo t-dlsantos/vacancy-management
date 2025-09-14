@@ -6,6 +6,14 @@ import br.com.thiagosantos.vacancymanagement.modules.cadidate.useCases.CreateCan
 import br.com.thiagosantos.vacancymanagement.modules.cadidate.useCases.ListAllJobsByFilterUseCase;
 import br.com.thiagosantos.vacancymanagement.modules.cadidate.useCases.ProfileCandidateUseCase;
 import br.com.thiagosantos.vacancymanagement.modules.company.entities.JobEntity;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.apache.coyote.Response;
@@ -56,6 +64,16 @@ public class CandidateController {
 
     @GetMapping("/job")
     @PreAuthorize("hasRole('CANDIDATE')")
+    @Tag(name = "Candidate", description = "Candidate's information")
+    @Operation(summary = "List of available positions for the candidate", description = "This function is responsible for listing all available position based on the filter")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = {
+                    @Content(
+                            array = @ArraySchema(schema = @Schema(implementation = JobEntity.class))
+                    )
+            })
+    })
+    @SecurityRequirement(name = "jwt_auth")
     public List<JobEntity> findJobByFilter(@RequestParam String filter) {
         return this.listAllJobsByFilterUseCase.execute(filter);
     }
