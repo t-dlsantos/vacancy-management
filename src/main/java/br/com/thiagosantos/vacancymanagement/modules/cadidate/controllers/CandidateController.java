@@ -1,5 +1,6 @@
 package br.com.thiagosantos.vacancymanagement.modules.cadidate.controllers;
 
+import br.com.thiagosantos.vacancymanagement.modules.cadidate.dto.ProfileCandidateResponseDTO;
 import br.com.thiagosantos.vacancymanagement.modules.cadidate.entities.CandidateEntity;
 import br.com.thiagosantos.vacancymanagement.modules.cadidate.useCases.CreateCandidateUseCase;
 import br.com.thiagosantos.vacancymanagement.modules.cadidate.useCases.ListAllJobsByFilterUseCase;
@@ -48,6 +49,15 @@ public class CandidateController {
     
     @GetMapping("/")
     @PreAuthorize("hasRole('CANDIDATE')")
+    @Tag(name = "Candidate")
+    @Operation(summary = "Candidate's profile", description = "This function is responsible to search the candidate's profile information")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = {
+                    @Content(schema = @Schema(implementation = ProfileCandidateResponseDTO.class))
+            }),
+            @ApiResponse(responseCode = "400", description = "User not found")
+    })
+    @SecurityRequirement(name = "jwt_auth")
     public ResponseEntity<Object> get(HttpServletRequest request) {
 
         var idCandidate = request.getAttribute("candidate_id");

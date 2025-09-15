@@ -1,5 +1,6 @@
 package br.com.thiagosantos.vacancymanagement.modules.company.entities;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -21,9 +22,14 @@ public class JobEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
+    @Schema(example = "Java developer")
     private String description;
+
+    @Schema(example = "Insurance Plan")
     private String benefits;
 
+    @Schema(example = "SENIOR")
     @NotBlank(message = "Esse campo é obrigatório")
     private String level;
 
