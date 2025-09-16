@@ -9,7 +9,6 @@ import br.com.thiagosantos.vacancymanagement.modules.cadidate.repositories.Candi
 import br.com.thiagosantos.vacancymanagement.modules.cadidate.useCases.ApplyJobCandidateUseCase;
 import br.com.thiagosantos.vacancymanagement.modules.company.entities.JobEntity;
 import br.com.thiagosantos.vacancymanagement.modules.company.repositories.JobRepository;
-import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,7 +21,6 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
