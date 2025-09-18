@@ -1,8 +1,8 @@
 package br.com.thiagosantos.vacancymanagement.modules.cadidate.useCases;
 
+import br.com.thiagosantos.vacancymanagement.exceptions.UserNotFoundException;
 import br.com.thiagosantos.vacancymanagement.modules.cadidate.dto.ProfileCandidateResponseDTO;
 import br.com.thiagosantos.vacancymanagement.modules.cadidate.repositories.CandidateRepository;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -10,7 +10,7 @@ import java.util.UUID;
 @Service
 public class ProfileCandidateUseCase {
 
-    private CandidateRepository candidateRepository;
+    private final CandidateRepository candidateRepository;
 
     public ProfileCandidateUseCase(CandidateRepository candidateRepository) {
         this.candidateRepository = candidateRepository;
@@ -18,9 +18,7 @@ public class ProfileCandidateUseCase {
 
     public ProfileCandidateResponseDTO execute(UUID idCandidate) {
         var candidate = this.candidateRepository.findById(idCandidate)
-                .orElseThrow(() -> {
-                    throw new UsernameNotFoundException("User not found");
-                });
+                .orElseThrow(UserNotFoundException::new);
 
         return ProfileCandidateResponseDTO.builder()
                 .description(candidate.getDescription())
