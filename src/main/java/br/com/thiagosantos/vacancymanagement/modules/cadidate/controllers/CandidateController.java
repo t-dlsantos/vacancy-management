@@ -17,6 +17,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +35,7 @@ public class CandidateController {
     private final ListAllJobsByFilterUseCase listAllJobsByFilterUseCase;
     private final ApplyJobCandidateUseCase applyJobCandidateUseCase;
 
+    @Autowired
     public CandidateController(CreateCandidateUseCase createCandidateUseCase, ProfileCandidateUseCase profileCandidateUseCase, ListAllJobsByFilterUseCase listAllJobsByFilterUseCase, ApplyJobCandidateUseCase applyJobCandidateUseCase) {
         this.createCandidateUseCase = createCandidateUseCase;
         this.profileCandidateUseCase = profileCandidateUseCase;

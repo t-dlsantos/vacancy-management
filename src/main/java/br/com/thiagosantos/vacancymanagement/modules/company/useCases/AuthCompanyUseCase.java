@@ -1,8 +1,6 @@
 package br.com.thiagosantos.vacancymanagement.modules.company.useCases;
 
-import javax.naming.AuthenticationException;
-
-import br.com.thiagosantos.vacancymanagement.modules.company.dto.AuthCompanyDTO;
+import br.com.thiagosantos.vacancymanagement.modules.company.dto.AuthCompanyRequestDTO;
 import br.com.thiagosantos.vacancymanagement.modules.company.dto.AuthCompanyResponseDTO;
 import br.com.thiagosantos.vacancymanagement.modules.company.repositories.CompanyRepository;
 import com.auth0.jwt.JWT;
@@ -12,9 +10,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.naming.AuthenticationException;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -30,13 +28,11 @@ public class AuthCompanyUseCase {
         this.companyRepository = companyRepository;
     }
 
-    public AuthCompanyResponseDTO execute(AuthCompanyDTO authCompanyDTO) throws AuthenticationException {
-        var company = this.companyRepository.findByUsername(authCompanyDTO.getUsername()).orElseThrow(
-                () -> {
-                    throw new UsernameNotFoundException("Username/Password incorrect!");
-                });
+    public AuthCompanyResponseDTO execute(AuthCompanyRequestDTO authCompanyRequestDTO) throws AuthenticationException {
+        var company = this.companyRepository.findByUsername(authCompanyRequestDTO.getUsername()).orElseThrow(
+                () -> new UsernameNotFoundException("Username/Password incorrect!"));
 
-        var passwordMatches = this.passwordEncoder.matches(authCompanyDTO.getPassword(), company.getPassword());
+        var passwordMatches = this.passwordEncoder.matches(authCompanyRequestDTO.getPassword(), company.getPassword());
 
         if(!passwordMatches) {
             throw new AuthenticationException();
