@@ -33,7 +33,7 @@ public class JobController {
     @PostMapping("/")
     @PreAuthorize("hasRole('COMPANY')")
     @Tag(name = "Vacancies", description = "Vacancies's information")
-    @Operation(summary = "Vacancy Registration", description = "This function is responsible for registering job opening within the company")
+    @Operation(summary = "Vacancy registration", description = "This function is responsible for registering job opening within the company")
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = {
                     @Content(schema = @Schema(implementation = JobEntity.class))
